@@ -198,3 +198,4 @@ document.addEventListener('DOMContentLoaded', init);
 // Export function placeholder
 // Final UI polish
 // Update 2026-03-27 sequence 1
+// Update 2026-03-27 sequence 2
