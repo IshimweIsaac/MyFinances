@@ -199,3 +199,4 @@ document.addEventListener('DOMContentLoaded', init);
 // Final UI polish
 // Update 2026-03-27 sequence 1
 // Update 2026-03-27 sequence 2
+// Update 2026-03-27 sequence 3
