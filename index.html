@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyFinances | Smart Budget Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i data-lucide="wallet"></i>
+                <span>MyFinances</span>
+            </div>
+            <nav>
+                <a href="#" class="active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="#"><i data-lucide="arrow-up-right"></i> Income</a>
+                <a href="#"><i data-lucide="arrow-down-left"></i> Expenses</a>
+                <a href="#"><i data-lucide="pie-chart"></i> Budgets</a>
+                <a href="#"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="theme-toggle">
+                <button id="mode-toggle"><i data-lucide="moon"></i> <span>Dark Mode</span></button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Welcome Back, <span id="user-name">Ishimwe</span></h1>
+                <div class="header-actions">
+                    <button class="btn-primary" id="add-transaction-btn"><i data-lucide="plus"></i> Add Transaction</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Stats -->
+            <section class="stats-grid">
+                <div class="stat-card balance">
+                    <div class="stat-info">
+                        <p>Total Balance</p>
+                        <h3>$0.00</h3>
+                    </div>
+                    <i data-lucide="banknote" class="icon balance"></i>
+                </div>
+                <div class="stat-card income">
+                    <div class="stat-info">
+                        <p>Total Income</p>
+                        <h3>$0.00</h3>
+                    </div>
+                    <i data-lucide="trending-up" class="icon income"></i>
+                </div>
+                <div class="stat-card expense">
+                    <div class="stat-info">
+                        <p>Total Expenses</p>
+                        <h3>$0.00</h3>
+                    </div>
+                    <i data-lucide="trending-down" class="icon expense"></i>
+                </div>
+            </section>
+
+            <!-- Main Dashboard View -->
+            <section class="dashboard-grid">
+                <div class="grid-item charts">
+                    <div class="card-header">
+                        <h2>Expense Breakdown</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+                <div class="grid-item history">
+                    <div class="card-header">
+                        <h2>Recent Transactions</h2>
+                        <a href="#" id="view-all-link">View All</a>
+                    </div>
+                    <div class="transaction-list" id="transaction-list">
+                        <!-- Transactions will be injected here -->
+                        <div class="empty-state">No transactions yet.</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal" id="add-transaction-modal">
+            <div class="modal-header">
+                <h2>Add New Transaction</h2>
+                <button id="close-modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="transaction-form">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" placeholder="e.g. Rent, Grocery" required>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="amount">Amount ($)</label>
+                        <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+                    </div>
+                    <div class="col">
+                        <label for="type">Type</label>
+                        <select id="type">
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="Food">Food</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">Save Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Lucide icons initialization
+        lucide.initIcons();
+    </script>
+</body>
+</html>
