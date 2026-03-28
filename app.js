@@ -193,3 +193,4 @@ transactionForm.addEventListener('submit', addTransaction);
 document.addEventListener('DOMContentLoaded', init);
 // Add transaction logic refinement
 // Chart JS integration
+// Persistence logic
