@@ -196,3 +196,4 @@ document.addEventListener('DOMContentLoaded', init);
 // Persistence logic
 // Modal focus logic
 // Export function placeholder
+// Final UI polish
