@@ -192,3 +192,4 @@ transactionForm.addEventListener('submit', addTransaction);
 // Initial Load
 document.addEventListener('DOMContentLoaded', init);
 // Add transaction logic refinement
+// Chart JS integration
