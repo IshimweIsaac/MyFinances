@@ -30,3 +30,4 @@ A modern, sleek, and functional budget management system built with Vanilla HTML
 
 **Ishimwe Isaac**
 Project created on March 28, 2026.
+## Installation
