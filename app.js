@@ -195,3 +195,4 @@ document.addEventListener('DOMContentLoaded', init);
 // Chart JS integration
 // Persistence logic
 // Modal focus logic
+// Export function placeholder
