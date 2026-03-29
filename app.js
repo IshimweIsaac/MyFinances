@@ -378,3 +378,4 @@ document.addEventListener('DOMContentLoaded', init);
 // Varied enhancement 2026-03-29 (5)
 // Varied enhancement 2026-03-29 (6)
 // Varied enhancement 2026-03-29 (7)
+// Varied enhancement 2026-03-29 (8)
