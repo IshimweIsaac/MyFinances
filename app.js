@@ -343,3 +343,4 @@ document.addEventListener('DOMContentLoaded', init);
 // Refinement 2026-04-01 step 4
 // Refinement 2026-04-01 step 5
 // Refinement 2026-04-01 step 6
+// Refinement 2026-04-01 step 7
