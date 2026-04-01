@@ -425,6 +425,69 @@ body:not(.dark-mode) .transaction-item {
     }
 }
 
+/* Budget Overview Styling */
+.budget-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.budget-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.budget-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.budget-progress-container {
+    height: 8px;
+    background-color: var(--bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.budget-progress-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+.progress-green { background-color: var(--accent-green); }
+.progress-orange { background-color: #f59e0b; }
+.progress-red { background-color: var(--accent-red); }
+
+.remaining-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.btn-icon:hover {
+    color: var(--accent-blue);
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Modal specific override */
+.modal.hidden {
+    display: none;
+}
+
 /* Utilities */
 .empty-state {
     text-align: center;

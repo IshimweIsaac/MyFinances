@@ -75,6 +75,15 @@
                         <canvas id="expenseChart"></canvas>
                     </div>
                 </div>
+                <div class="grid-item budgets">
+                    <div class="card-header">
+                        <h2>Budget Overview</h2>
+                        <button class="btn-icon" id="set-budget-btn"><i data-lucide="edit-3"></i></button>
+                    </div>
+                    <div id="budget-list" class="budget-list">
+                        <!-- Budgets will be injected here -->
+                    </div>
+                </div>
                 <div class="grid-item history">
                     <div class="card-header">
                         <h2>Recent Transactions</h2>
@@ -91,10 +100,11 @@
 
     <!-- Modals -->
     <div id="modal-overlay" class="modal-overlay hidden">
+        <!-- Add Transaction Modal -->
         <div class="modal" id="add-transaction-modal">
             <div class="modal-header">
                 <h2>Add New Transaction</h2>
-                <button id="close-modal"><i data-lucide="x"></i></button>
+                <button class="close-modal"><i data-lucide="x"></i></button>
             </div>
             <form id="transaction-form">
                 <div class="form-group">
@@ -126,6 +136,31 @@
                     </select>
                 </div>
                 <button type="submit" class="btn-submit">Save Transaction</button>
+            </form>
+        </div>
+
+        <!-- Set Budget Modal -->
+        <div class="modal hidden" id="set-budget-modal">
+            <div class="modal-header">
+                <h2>Set Monthly Budgets</h2>
+                <button class="close-modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="budget-form">
+                <div class="form-group">
+                    <label for="budget-category">Category</label>
+                    <select id="budget-category">
+                        <option value="Food">Food</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="limit">Monthly Limit ($)</label>
+                    <input type="number" id="limit" step="1" placeholder="500" required>
+                </div>
+                <button type="submit" class="btn-submit">Update Budget</button>
             </form>
         </div>
     </div>

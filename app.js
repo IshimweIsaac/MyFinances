@@ -1,5 +1,12 @@
 // Application State
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+let budgets = JSON.parse(localStorage.getItem('budgets')) || {
+    "Food": 500,
+    "Rent": 1500,
+    "Transport": 300,
+    "Entertainment": 200,
+    "Other": 400
+};
 const userProfile = { name: "Ishimwe Isaac" };
 
 // DOM Elements
@@ -7,10 +14,15 @@ const balanceEl = document.querySelector('.stat-card.balance h3');
 const incomeEl = document.querySelector('.stat-card.income h3');
 const expenseEl = document.querySelector('.stat-card.expense h3');
 const transactionListEl = document.getElementById('transaction-list');
+const budgetListEl = document.getElementById('budget-list');
 const transactionForm = document.getElementById('transaction-form');
+const budgetForm = document.getElementById('budget-form');
 const addTransactionBtn = document.getElementById('add-transaction-btn');
+const setBudgetBtn = document.getElementById('set-budget-btn');
 const modalOverlay = document.getElementById('modal-overlay');
-const closeModalBtn = document.getElementById('close-modal');
+const addTransactionModal = document.getElementById('add-transaction-modal');
+const setBudgetModal = document.getElementById('set-budget-modal');
+const closeModalBtns = document.querySelectorAll('.close-modal');
 const modeToggleBtn = document.getElementById('mode-toggle');
 
 // Chart initialization
@@ -20,6 +32,7 @@ let expenseChart;
 function init() {
     updateSummary();
     renderTransactions();
+    renderBudgets();
     initChart();
 }
 
@@ -103,21 +116,76 @@ function addTransaction(e) {
 window.removeTransaction = function(id) {
     transactions = transactions.filter(t => t.id !== id);
     init();
-    updateChart();
 };
+
+// Update Budgets UI
+function renderBudgets() {
+    budgetListEl.innerHTML = Object.keys(budgets).map(category => {
+        const spent = transactions
+            .filter(t => t.category === category && t.amount < 0)
+            .reduce((acc, t) => acc + Math.abs(t.amount), 0);
+        
+        const limit = budgets[category];
+        const percent = Math.min((spent / limit) * 100, 100).toFixed(0);
+        const remaining = (limit - spent).toFixed(2);
+        
+        let colorClass = 'progress-green';
+        if (percent >= 90) colorClass = 'progress-red';
+        else if (percent >= 70) colorClass = 'progress-orange';
+
+        return `
+            <div class="budget-item">
+                <div class="budget-info">
+                    <span>${category}</span>
+                    <span>$${spent.toFixed(0)} / $${limit}</span>
+                </div>
+                <div class="budget-progress-container">
+                    <div class="budget-progress-bar ${colorClass}" style="width: ${percent}%"></div>
+                </div>
+                <div class="remaining-text">
+                    ${remaining >= 0 ? `$${remaining} remaining` : `$${Math.abs(remaining)} over budget`}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    updateLocalStorage();
+}
+
+// Update Budget Limit
+function updateBudget(e) {
+    e.preventDefault();
+    const cat = document.getElementById('budget-category').value;
+    const limit = parseFloat(document.getElementById('limit').value);
+    
+    budgets[cat] = limit;
+    init();
+    closeModal();
+}
 
 // Local Storage
 function updateLocalStorage() {
     localStorage.setItem('transactions', JSON.stringify(transactions));
+    localStorage.setItem('budgets', JSON.stringify(budgets));
 }
 
 // Modal Logic
-function openModal() {
+function openTransactionModal() {
     modalOverlay.classList.remove('hidden');
+    addTransactionModal.classList.remove('hidden');
+    setBudgetModal.classList.add('hidden');
+}
+
+function openBudgetModal() {
+    modalOverlay.classList.remove('hidden');
+    setBudgetModal.classList.remove('hidden');
+    addTransactionModal.classList.add('hidden');
 }
 
 function closeModal() {
     modalOverlay.classList.add('hidden');
+    addTransactionModal.classList.add('hidden');
+    setBudgetModal.classList.add('hidden');
 }
 
 // Chart Logic
@@ -185,9 +253,11 @@ modeToggleBtn.addEventListener('click', () => {
 });
 
 // Event Listeners
-addTransactionBtn.addEventListener('click', openModal);
-closeModalBtn.addEventListener('click', closeModal);
+addTransactionBtn.addEventListener('click', openTransactionModal);
+setBudgetBtn.addEventListener('click', openBudgetModal);
+closeModalBtns.forEach(btn => btn.addEventListener('click', closeModal));
 transactionForm.addEventListener('submit', addTransaction);
+budgetForm.addEventListener('submit', updateBudget);
 
 // Initial Load
 document.addEventListener('DOMContentLoaded', init);
@@ -267,3 +337,4 @@ document.addEventListener('DOMContentLoaded', init);
 // Update 2026-03-31 sequence 15
 // Update 2026-03-31 sequence 16
 // Update 2026-03-31 sequence 17
+// Refinement 2026-04-01 step 1
